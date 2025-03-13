@@ -13,46 +13,46 @@ chicago_taxi_dataset = pd.read_csv("chicago_taxi_train.csv")
 training_df = chicago_taxi_dataset[['TRIP_MILES', 'TRIP_SECONDS', 'FARE', 'COMPANY', 'PAYMENT_TYPE', 'TIP_RATE']]
 
 # Making sure the dataset is read in
-#print('Read dataset completed successfully.')
-#print('Total number of rows: {0}\n\n'.format(len(training_df.index)))
+print('Read dataset completed successfully.')
+print('Total number of rows: {0}\n\n'.format(len(training_df.index)))
 
 # Prints the beginning and end of the dataframe
-#print(training_df.head(200))
+print(training_df.head(200))
 
 # Print useful statistics like mean, std, min, max, and more
-#print(training_df.describe(include='all'))
+print(training_df.describe(include='all'))
 
 # Calculates maximum fare
 max_fare = training_df["FARE"].max()
-#print("What is the maximum fare? \n${:.2f}".format(max_fare) + "\n")
+print("What is the maximum fare? \n${:.2f}".format(max_fare) + "\n")
 
 # Calculates mean distance
 mean_distance = training_df["TRIP_MILES"].mean()
-#print("What is the mean distance? \n{:.2f} miles".format(mean_distance) + "\n")
+print("What is the mean distance? \n{:.2f} miles".format(mean_distance) + "\n")
 
 # Calculates how many cab companies
 cab_companies = training_df["COMPANY"].nunique()
-#print("How many cab companies are there? \n{:2d} cab companies".format(cab_companies) + "\n")
+print("How many cab companies are there? \n{:2d} cab companies".format(cab_companies) + "\n")
 
 # Calculates most frequent payment type
 freq_payment = training_df["PAYMENT_TYPE"].value_counts().idxmax()
-#print("What is the most frequent payment type? \n{:}".format(freq_payment) + "\n")
+print("What is the most frequent payment type? \n{:}".format(freq_payment) + "\n")
 
 # Checks if any of the features is missing data
 missing_values = training_df.isnull().sum().sum()
-#print("What is the most frequent payment type? ", "\nNo" if missing_values == 0 else "\nYes")
+print("What is the most frequent payment type? ", "\nNo" if missing_values == 0 else "\nYes")
 
 # Examining a correlation matrix
 corr = training_df.corr(numeric_only = True)
-#plt.figure(figsize=(4,4))
-#sns.heatmap(data=corr, cmap='coolwarm')
-#plt.show()
-#print("FARE is most correlated to TRIP_MILES ({:.2f} correlated)".format(corr["FARE"]["TRIP_MILES"]))
-#print("FARE is least correlated to TIP_RATE ({:.2f} correlated)".format(corr["FARE"]["TIP_RATE"]))
+plt.figure(figsize=(4,4))
+sns.heatmap(data=corr, cmap='coolwarm')
+plt.show()
+print("FARE is most correlated to TRIP_MILES ({:.2f} correlated)".format(corr["FARE"]["TRIP_MILES"]))
+print("FARE is least correlated to TIP_RATE ({:.2f} correlated)".format(corr["FARE"]["TIP_RATE"]))
 
 # Examining a pairplot
-#sns.pairplot(training_df, x_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"], y_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"])
-#plt.show()
+sns.pairplot(training_df, x_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"], y_vars=["FARE", "TRIP_MILES", "TRIP_SECONDS"])
+plt.show()
 
 def make_plots(df, feature_names, label_name, model_output, sample_size=200):
 
@@ -209,30 +209,30 @@ def run_experiment(df, feature_names, label_name, learning_rate, epochs, batch_s
 
   return model
 
-#model_1 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=20, batch_size=50)
-#print("Model 1 converges around 5 epochs")
-#print("The model fits the data well")
+model_1 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=20, batch_size=50)
+print("Model 1 converges around 5 epochs")
+print("The model fits the data well")
 
-#model_2 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.0001, epochs=20, batch_size=50)
-#print("Model 2 does not converge")
-#print("The model does not fit the data very well")
+model_2 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.0001, epochs=20, batch_size=50)
+print("Model 2 does not converge")
+print("The model does not fit the data very well")
 
-#model_3 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=20, batch_size=500)
-#print("Model 3 does not converge")
-#print("The model does not fit the data very well but is closer")
+model_3 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=20, batch_size=500)
+print("Model 3 does not converge")
+print("The model does not fit the data very well but is closer")
 
-#model_4 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=60, batch_size=500)
-#print("Model 4 does converge around 54 epochs")
-#print("The model fits the data well")
+model_4 = run_experiment(training_df, feature_names=["TRIP_MILES"], label_name="FARE", learning_rate=0.001, epochs=60, batch_size=500)
+print("Model 4 does converge around 54 epochs")
+print("The model fits the data well")
 
-#model_5 = run_experiment(training_df, feature_names=["TRIP_MILES", "TRIP_SECONDS"], label_name="FARE", learning_rate=0.001, epochs=60, batch_size=500)
-#print("Model 5 does converge around 12 epochs")
-#print("The model fits the data okay (majority of points)")
+model_5 = run_experiment(training_df, feature_names=["TRIP_MILES", "TRIP_SECONDS"], label_name="FARE", learning_rate=0.001, epochs=60, batch_size=500)
+print("Model 5 does converge around 12 epochs")
+print("The model fits the data okay (majority of points)")
 
 training_df.loc[:, 'TRIP_MINUTES'] = training_df['TRIP_SECONDS']/60
 model_6 = run_experiment(training_df, feature_names=["TRIP_MILES", "TRIP_MINUTES"], label_name="FARE", learning_rate=0.001, epochs=60, batch_size=500)
-#print("Model 6 does converge around 40 epochs")
-#print("The model fits the data well")
+print("Model 6 does converge around 40 epochs")
+print("The model fits the data well")
 
 
 def format_currency(x):
